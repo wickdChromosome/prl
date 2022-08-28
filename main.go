@@ -87,6 +87,7 @@ func read_dynamic_args(in_cmd string) []dynamic_arg {
 	re := regexp.MustCompile("\\{(.*?)\\}")
 	match := re.FindAllString(in_cmd,-1)
 	if len(match) == 0 {
+		flag.PrintDefaults()
 		log.Fatal("Error: no dynamic arguments supplied, nothing to parallelize over")
 	}
 
@@ -128,6 +129,7 @@ func check_input(in_args []dynamic_arg) {
 		}
 
 		if argcount != len(in_args[i-1].content) {
+			flag.PrintDefaults()
 			log.Fatal("ERROR: Number of input args in dynamic variables not the same")
 		}
 	}
@@ -138,6 +140,7 @@ func check_input(in_args []dynamic_arg) {
 }
 
 func exec_sh_worker(id int, commands <-chan string, results chan<-string) {
+// Shell execution worker
 
 	for this_command := range commands {
 		cmd := exec.Command("bash","-c",this_command)
