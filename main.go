@@ -166,7 +166,6 @@ func main() {
 
 	// Create shell command strings
 	commands_list := make_commands(*cmd,dynamic_args)
-	fmt.Println(commands_list)
 
 	// Command execution
 	// ###############
