@@ -86,6 +86,10 @@ func read_dynamic_args(in_cmd string) []dynamic_arg {
 	// Find all non-static inputs
 	re := regexp.MustCompile("\\{(.*?)\\}")
 	match := re.FindAllString(in_cmd,-1)
+	if len(match) == 0 {
+		log.Fatal("Error: no dynamic arguments supplied, nothing to parallelize over")
+	}
+
 	for _,arg := range match {
 
 		this_path := arg[1:len(arg)-1]
