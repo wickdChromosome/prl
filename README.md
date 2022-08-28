@@ -3,10 +3,16 @@ A simple tool for concurrent shell command execution
 
 ## Examples
 
+Supply arguments in a pre-made file
 ```
 # zip every file in paths.txt, with 5 workers in parallel
 make build
 ./prl -j 5 -cmd "zip -r {paths.txt}.zip {paths.txt}"
+```
+
+Supply arguments on the go, using temp files
+```
+temp_f=$(mktemp) && ls test/*.zip > $temp_f && prl -j 6 -cmd "du -sh {$(printf $temp_f)}" && rm $temp_f
 ```
 
 ## Arguments
@@ -36,5 +42,4 @@ ls /home/user2
 But this can be used for any shell command.
 
 ## TODO
-- Make it so that shell substitution commands work with prl. For example, `prl -j 6 -cmd "du -sh <(ls -1d /home/*)"`. This would eliminate the need to dump arguments into a file
 - Better logging, where all the output is captured and sorted by command
