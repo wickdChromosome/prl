@@ -43,3 +43,5 @@ But this can be used for any shell command.
 
 ## TODO
 - Better logging, where all the output is captured and sorted by command
+- Better on-the-go command execution. Maybe using sh's <() operator? Temp files are still a bit messy
+- Progress bar
