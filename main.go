@@ -191,7 +191,7 @@ func main() {
 	// Number of processes to exec in parallel
 	numw := flag.Int("j", 4, "# of workers")
 	// The command to execute and parallelize over
-	cmd := flag.String("cmd", "ls", "Command to parallelize over")
+	cmd := flag.String("cmd", "ls '{ls /usr/bin/*}'", "Command to parallelize over")
 	flag.Parse()
 
 	// Extract dynamic args file names
