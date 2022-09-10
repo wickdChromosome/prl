@@ -6,7 +6,6 @@ A simple tool for concurrent shell command execution
 
 ## Examples
 
-Supply arguments in a pre-made file
 ```
 # get file sizes for all zipped pdf files in the Downloads folder, using 6 parallel processes
 go build
