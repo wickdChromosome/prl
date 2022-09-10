@@ -10,7 +10,7 @@ Supply arguments in a pre-made file
 ```
 # get file sizes for all zipped pdf files in the Downloads folder, using 6 parallel processes
 go build
-./prl -j 6 -cmd "du -h { ls ~/Downloads/*.zip | grep pdf }""
+./prl -j 6 -cmd "du -h { ls ~/Downloads/*.zip | grep pdf }"
 ```
 
 ## Arguments
