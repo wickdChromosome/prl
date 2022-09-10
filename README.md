@@ -45,4 +45,4 @@ But this can be used for any shell command.
 - Better logging, where all the output is captured and sorted by command
 - Better on-the-go command execution. Maybe using sh's <() operator? Temp files are still a bit messy
 - Many, many more tests
-- Progress bar
+- Add support for spaces in filenames
