@@ -30,6 +30,8 @@ import (
 	"os"
 	"log"
 	"os/exec"
+	"github.com/schollz/progressbar/v3"
+
 )
 
 // Struct for storing the dynamic arg and its contents
@@ -47,15 +49,24 @@ type command struct {
 
 }
 
+
 func linesStringCount(s string) int {
-    n := strings.Count(s, "\n")
-    if len(s) > 0 && !strings.HasSuffix(s, "\n") {
-        n++
-    }
-    return n
+	/* Counts the number of new line
+	   characters in the input string
+	*/
+
+	n := strings.Count(s, "\n")
+	if len(s) > 0 && !strings.HasSuffix(s, "\n") {
+	    n++
+	}
+	return n
 }
 
+
 func make_commands(cmd_string string, in_args []dynamic_arg) []string{
+	/* Creates an array of command strings which will be ran 
+	   in parallel
+	*/
 
 	// Inputs array retained command order,
 	// so lets just do a simple substitution
@@ -79,8 +90,8 @@ func make_commands(cmd_string string, in_args []dynamic_arg) []string{
 }
 
 func read_dynamic_args(in_cmd string) []dynamic_arg {
-// Returns the dynamic args as a string 
-
+	/* Returns the dynamic args as a string 
+	*/
 
 	var inputs = []dynamic_arg {}
 	// Find all non-static inputs
@@ -112,8 +123,9 @@ func read_dynamic_args(in_cmd string) []dynamic_arg {
 }
 
 func check_input(in_args []dynamic_arg) {
-// Check input command sanity
-// Also make sure that the input args 
+	/* Check input command sanity
+	   
+	*/
 
 
 	// For all lists of args, make sure to check that the number of
@@ -140,7 +152,8 @@ func check_input(in_args []dynamic_arg) {
 }
 
 func exec_sh_worker(id int, commands <-chan string, results chan<-string) {
-// Shell execution worker
+	/* Shell execution worker
+	*/
 
 	for this_command := range commands {
 		cmd := exec.Command("bash","-c",this_command)
@@ -149,7 +162,6 @@ func exec_sh_worker(id int, commands <-chan string, results chan<-string) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		
 		results <- string(output)
 	}
 }
@@ -181,7 +193,7 @@ func main() {
 	// Make job and result channels
 	jobs := make(chan string, numjobs)
 	results := make(chan string, numjobs)
-	
+
 	// Make workers
 	for w := 1; w <= *numw; w++ {
 		go exec_sh_worker(w, jobs, results)
@@ -193,12 +205,19 @@ func main() {
 	}
 	close(jobs)
 
+	// Make a progress bar
+	fmt.Println(int64(numjobs))
+	bar := progressbar.Default(int64(numjobs))
+
 	// Lets get the command output
 	cmd_res := []string{}
 	for a := 0; a < numjobs; a++ {
 		cmd_res = append(cmd_res,<-results)
+		// Update progress bar
+		bar.Add(1)
 	}
-	
+
+
 	fmt.Println(cmd_res)
 
 
