@@ -1,2 +1,4 @@
 test/
 prl
+go.mod
+go.sum
