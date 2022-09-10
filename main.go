@@ -166,6 +166,22 @@ func exec_sh_worker(id int, commands <-chan string, results chan<-string) {
 	}
 }
 
+func show_output(cmds_out []string) {
+	/* Shows the output stats of the executed command 
+	*/
+
+	for _,this_cmd := range cmds_out {
+
+		// Print a command divider
+		fmt.Println("==================================================")
+
+		// Print the command results
+		fmt.Println(this_cmd)
+
+	}
+
+}
+
 func main() {
 
 	// Parse arguments
@@ -226,8 +242,8 @@ func main() {
 		bar.Add(1)
 	}
 
-
-	fmt.Println(cmd_res)
+	// Lets prettify the output and show it
+	show_output(cmd_res)
 
 
 
