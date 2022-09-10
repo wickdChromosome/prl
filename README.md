@@ -1,15 +1,13 @@
-# prl
+# prl -> Easy sh command parallelization
 
 ![prl demo](demo.gif)
-
-A simple tool for concurrent shell command execution
 
 ## Examples
 
 ```
 # get file sizes for all zipped pdf files in the Downloads folder, using 6 parallel processes
-go build
-./prl -j 6 -cmd "du -h { ls ~/Downloads/*.zip | grep pdf }"
+prl -j 6 -cmd "du -h '{ ls ~/Downloads/*.zip | grep pdf }'"
+# don't forget the the two quotes(') around the command - that way spaces etc in filenames are correctly handled
 ```
 
 ## Arguments
@@ -24,7 +22,7 @@ where the filename with parentheses is.
 
 For example, 
 ```
-./prl -j 2 -cmd "ls {ls /home}"
+prl -j 2 -cmd "ls {ls /home}"
 ```
 Where /home contains:
 ```
@@ -41,4 +39,3 @@ But this can be used for any shell command.
 ## TODO
 - Better logging, where all the output is captured and sorted by command
 - Many, many more tests
-- Add support for spaces in filenames
