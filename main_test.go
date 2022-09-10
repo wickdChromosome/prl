@@ -22,7 +22,7 @@ func TestLs(t *testing.T) {
 	/* Function to test running a simple ls in parallel
 	*/
 
-	test_command := "go build && ./prl -j 4 -cmd 'ls {tests.txt}'"
+	test_command := "go build && ./prl -j 4 -cmd 'ls {for i in `seq 1 1000`; do echo prl; done}'"
         cmd := exec.Command("bash","-c",test_command)
                 _,err := cmd.CombinedOutput()
 

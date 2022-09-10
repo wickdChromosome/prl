@@ -27,7 +27,6 @@ import (
 	"flag"
 	"strings"
 	"regexp"
-	"os"
 	"log"
 	"os/exec"
 	"github.com/schollz/progressbar/v3"
@@ -104,16 +103,18 @@ func read_dynamic_args(in_cmd string) []dynamic_arg {
 
 	for _,arg := range match {
 
-		this_path := arg[1:len(arg)-1]
-		// Open file, read into string
-		b, err := os.ReadFile(this_path)
+		this_command := arg[1:len(arg)-1]
+
+		cmd := exec.Command("bash","-c",this_command)
+		output,err := cmd.CombinedOutput()
+
 		if err != nil {
 			fmt.Print(err)
 		}
 
-		file_content := strings.Split(string(b),"\n")
-		this_path = "{" + this_path + "}"
-		inputs = append(inputs, dynamic_arg{path:this_path,content:file_content})
+		command_output := strings.Split(string(output),"\n")
+		this_command = "{" + this_command + "}"
+		inputs = append(inputs, dynamic_arg{path:this_command,content:command_output})
 
 	}
 
@@ -173,7 +174,7 @@ func show_output(cmds_out []string) {
 	for _,this_cmd := range cmds_out {
 
 		// Print a command divider
-		fmt.Println("==================================================")
+		fmt.Println("\n==================================================")
 
 		// Print the command results
 		fmt.Println(this_cmd)
