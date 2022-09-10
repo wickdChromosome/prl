@@ -6,7 +6,7 @@ A simple tool for concurrent shell command execution
 Supply arguments in a pre-made file
 ```
 # zip every file in paths.txt, with 5 workers in parallel
-make build
+go build
 ./prl -j 5 -cmd "zip -r {paths.txt}.zip {paths.txt}"
 ```
 
