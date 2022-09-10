@@ -7,12 +7,7 @@ Supply arguments in a pre-made file
 ```
 # zip every file in paths.txt, with 5 workers in parallel
 go build
-./prl -j 5 -cmd "zip -r {paths.txt}.zip {paths.txt}"
-```
-
-Supply arguments on the go, using temp files
-```
-temp_f=$(mktemp) && ls test/*.zip > $temp_f && prl -j 6 -cmd "du -sh {$(printf $temp_f)}" && rm $temp_f
+./prl -j 5 -cmd "du -h {paths.txt}"
 ```
 
 ## Arguments
