@@ -25,7 +25,7 @@ where the filename with parentheses is.
 
 For example, if a file, paths.txt is supplied like this:
 ```
-./prl -j 2 -cmd "ls {paths.txt}"
+./prl -j 2 -cmd "ls {tests.txt}"
 ```
 Where paths.txt contains:
 ```
