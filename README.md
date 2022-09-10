@@ -10,7 +10,7 @@ Supply arguments in a pre-made file
 ```
 # zip every file in paths.txt, with 5 workers in parallel
 go build
-./prl -j 5 -cmd "du -h {paths.txt}"
+./prl -j 5 -cmd "du -h {tests.txt}"
 ```
 
 ## Arguments
@@ -25,7 +25,7 @@ where the filename with parentheses is.
 
 For example, if a file, paths.txt is supplied like this:
 ```
-./prl -j 2 -cmd "ls {tests.txt}"
+./prl -j 2 -cmd "ls {paths.txt}"
 ```
 Where paths.txt contains:
 ```
