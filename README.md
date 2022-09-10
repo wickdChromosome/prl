@@ -1,4 +1,7 @@
 # prl
+
+![prl demo](demo.gif)
+
 A simple tool for concurrent shell command execution
 
 ## Examples
