@@ -206,8 +206,17 @@ func main() {
 	close(jobs)
 
 	// Make a progress bar
-	fmt.Println(int64(numjobs))
-	bar := progressbar.Default(int64(numjobs))
+	bar := progressbar.NewOptions(numjobs,
+	    progressbar.OptionEnableColorCodes(true),
+	    progressbar.OptionSetWidth(15),
+	    progressbar.OptionSetDescription("[green]Executing commands...[reset] "),
+	    progressbar.OptionSetTheme(progressbar.Theme{
+	    Saucer:        "[green]=[reset]",
+	    SaucerHead:    "[green]>[reset]",
+	    SaucerPadding: " ",
+	    BarStart:      "[",
+	    BarEnd:        "]",
+    }))
 
 	// Lets get the command output
 	cmd_res := []string{}
