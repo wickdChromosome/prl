@@ -259,6 +259,9 @@ func main() {
 		bar.Add(1)
 	}
 
+	// Add a new line, just to prettify things
+	fmt.Println("")
+
 	// If silent, don't print anything and just exit
 	if *silent {
 		return
