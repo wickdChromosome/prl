@@ -29,11 +29,15 @@ prl -s --progbar-string "Zipping files.." --cmd "zip -r '{ls .}.zip' '{ls .}'"
 prl -j 6 --cmd "du -h '{ ls ~/Downloads/*.zip | grep pdf }'"
 # don't forget the the two quotes(') around the command - that way spaces etc in filenames are correctly handled
 ```
+#### Get list of active hosts in IP range using ping, using 12 processes, into a file(hosts.txt)
+```
+prl -j 12 --cmd "ping -c 1 192.168.0.{seq 0 100} && echo 192.168.0.{seq 0 100} UP >> hosts.txt || echo 192.168.0.{seq 0 100} DOWN >> hosts.txt"
+```
 
 ## Arguments
 
 
-- j -> The number of concurrent processes to execute the command over
+- -j -> The number of concurrent processes to execute the command over
 - --cmd -> A string of the command to execute. 
 - --progbar-string -> Set custom text for your progress bar
 - -s -> Silent mode, don't print text returned from commands to stdout(but still show progbar)
