@@ -11,7 +11,7 @@ All non-static arguments (those in {}) must have the same amount of members to i
 
 Everything else in the cmd string will just get copied over.
 
-Try running w/ --dry_run to see the commands that will be executed.
+Try running w/ --dry-run to see the commands that will be executed.
 
 */
 
@@ -191,7 +191,7 @@ func main() {
 
 	// Allow a dry run, where the generated commands get output
 	// to stdout
-	dry_run := flag.Bool("dry_run", false, "Print out generated commands, but dont execute them")
+	dry_run := flag.Bool("dry-run", false, "Print out generated commands, but dont execute them")
 
 	// Silent mode
 	silent := flag.Bool("s", false, "Don't print out command results")
