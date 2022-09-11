@@ -7,15 +7,11 @@ This module is used to parallelize sh commands.
 It allows you to enter some command, and parallelize inputs on 
 a pool of processes.
 
-You can enter either:
-- a single, static argument
-- the path to a \n separated list of arguments
+All non-static arguments (those in {}) must have the same amount of members to iterate over.
 
-All non-static arguments must have the same amount of members to iterate over.
-Static arguments just get copied over in every process.
+Everything else in the cmd string will just get copied over.
 
-Static arguments can be included as the actual command string. List of arguments
-should be supplied as {/command/file/path}
+Try running w/ --dry_run to see the commands that will be executed.
 
 */
 
@@ -214,7 +210,7 @@ func main() {
 	// If dry run, just print commands and exit
 	if *dry_run {
 		if !*silent {
-			fmt.Print(commands_list)
+			show_output(commands_list)
 		}
 		return
 	}
