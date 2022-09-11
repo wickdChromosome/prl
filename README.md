@@ -4,25 +4,50 @@
 
 ## Examples
 
+#### Zip all files in current directory
 ```
-# get file sizes for all zipped pdf files in the Downloads folder, using 6 parallel processes
-prl -j 6 -cmd "du -h '{ ls ~/Downloads/*.zip | grep pdf }'"
+prl --cmd "zip -r '{ls .}.zip' '{ls .}'"
+```
+
+#### Just print the generated commands, without execution
+```
+prl --dry-run --cmd "zip -r '{ls .}.zip' '{ls .}'"
+```
+
+#### Execute commands, but don't print text returned by commands to stdout(but still show progress bar)
+```
+prl -s --cmd "zip -r '{ls .}.zip' '{ls .}'"
+```
+
+#### Same as above, but set custom text for progress bar
+```
+prl -s --progbar-string "Zipping files.." --cmd "zip -r '{ls .}.zip' '{ls .}'"
+```
+
+#### Get file sizes for all zipped pdf files in the Downloads folder, using 6 parallel processes
+```
+prl -j 6 --cmd "du -h '{ ls ~/Downloads/*.zip | grep pdf }'"
 # don't forget the the two quotes(') around the command - that way spaces etc in filenames are correctly handled
 ```
 
 ## Arguments
 
+
 - j -> The number of concurrent processes to execute the command over
-- cmd -> A string of the command to execute. 
+- --cmd -> A string of the command to execute. 
+- --progbar-string -> Set custom text for your progress bar
+- -s -> Silent mode, don't print text returned from commands to stdout(but still show progbar)
+- --dry-run -> Print out generated commands to be executed, but don't actually execute them
+- --help -> Print help msg
 
 The command string should have commands to parallelize over in parantheses -> {}
-The results of these commands should result in a list of arguments, separated by newline(\n)
+The results of this command should result in a list of arguments, separated by newline(\n)
 prl will execute the supplied command in parallel, substituting the arguments into the place of the parantheses
-where the filename with parentheses is.
 
-For example, 
+## Simple example
+
 ```
-prl -j 2 -cmd "ls {ls /home}"
+prl -j 2 -cmd "ls '{ls /home}'"
 ```
 Where /home contains:
 ```
@@ -31,8 +56,8 @@ Where /home contains:
 ```
 The commands executed concurrently will be:
 ```
-ls /home/user1
-ls /home/user2
+ls '/home/user1'
+ls '/home/user2'
 ```
 But this can be used for any shell command.
 
