@@ -192,6 +192,14 @@ func main() {
 	numw := flag.Int("j", 4, "# of workers")
 	// The command to execute and parallelize over
 	cmd := flag.String("cmd", "", "Command to parallelize over")
+
+	// Allow a dry run, where the generated commands get output
+	// to stdout
+	dry_run := flag.Bool("dry_run", false, "Print out generated commands, but dont execute them")
+
+	// Silent mode
+	silent := flag.Bool("s", false, "Don't print out command results")
+
 	flag.Parse()
 
 	// Extract dynamic args file names
@@ -202,6 +210,14 @@ func main() {
 
 	// Create shell command strings
 	commands_list := make_commands(*cmd,dynamic_args)
+
+	// If dry run, just print commands and exit
+	if *dry_run {
+		if !*silent {
+			fmt.Print(commands_list)
+		}
+		return
+	}
 
 	// Command execution
 	// ###############
@@ -233,14 +249,20 @@ func main() {
 	    SaucerPadding: " ",
 	    BarStart:      "[",
 	    BarEnd:        "]",
-    }))
+	}))
 
 	// Lets get the command output
 	cmd_res := []string{}
 	for a := 0; a < numjobs; a++ {
 		cmd_res = append(cmd_res,<-results)
+
 		// Update progress bar
 		bar.Add(1)
+	}
+
+	// If silent, don't print anything and just exit
+	if *silent {
+		return
 	}
 
 	// Lets prettify the output and show it
