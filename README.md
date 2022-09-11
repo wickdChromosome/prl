@@ -31,7 +31,7 @@ prl -j 6 --cmd "du -h '{ ls ~/Downloads/*.zip | grep pdf }'"
 ```
 #### Get list of active hosts in IP range using ping, using 12 processes, into a file(hosts.txt)
 ```
-prl -j 12 --cmd "ping -c 1 192.168.0.{seq 0 100} && echo 192.168.0.{seq 0 100} UP >> hosts.txt || echo 192.168.0.{seq 0 100} DOWN >> hosts.txt"
+prl -s -j 12 --cmd "ping -c 1 192.168.0.{seq 0 100} && echo 192.168.0.{seq 0 100} UP >> hosts.txt || echo 192.168.0.{seq 0 100} DOWN >> hosts.txt" --progbar-string "Pinging hosts.."
 ```
 
 ## Arguments
