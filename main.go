@@ -193,6 +193,9 @@ func main() {
 	// to stdout
 	dry_run := flag.Bool("dry-run", false, "Print out generated commands, but dont execute them")
 
+	// Progbar info string
+	progbar_str := flag.String("progbar-string", "Executing commands...", "Progress bar info string")
+
 	// Silent mode
 	silent := flag.Bool("s", false, "Don't print out command results")
 
@@ -238,7 +241,7 @@ func main() {
 	bar := progressbar.NewOptions(numjobs,
 	    progressbar.OptionEnableColorCodes(true),
 	    progressbar.OptionSetWidth(15),
-	    progressbar.OptionSetDescription("[green]Executing commands...[reset] "),
+	    progressbar.OptionSetDescription("[green]"+*progbar_str+"[reset] "),
 	    progressbar.OptionSetTheme(progressbar.Theme{
 	    Saucer:        "[green]=[reset]",
 	    SaucerHead:    "[green]>[reset]",
